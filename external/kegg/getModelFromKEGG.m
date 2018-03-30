@@ -131,10 +131,12 @@ for i=1:numel(model.rxns)
     end
 end
 
-model.rxnGeneMat=sparse(r(1:counter-1),c(1:counter-1),ones(counter-1,1));
-if size(model.rxnGeneMat,1)~=numel(model.rxns) || size(model.rxnGeneMat,2)~=numel(KOModel.genes)
-    model.rxnGeneMat(numel(model.rxns),numel(KOModel.genes))=0;
-end
+%model.rxnGeneMat=sparse(r(1:counter-1),c(1:counter-1),ones(counter-1,1));
+%sprintf([num2str(numel(model.rxns)) ',' num2str(numel(KOModel.genes))])
+%if size(model.rxnGeneMat,1)~=numel(model.rxns) || size(model.rxnGeneMat,2)~=numel(KOModel.genes)
+%    model.rxnGeneMat(numel(model.rxns),numel(KOModel.genes))=0;
+%end
+model.rxnGeneMat=sparse(r(1:counter-1),c(1:counter-1),ones(counter-1,1),numel(model.rxns),numel(KOModel.genes));
 
 %Then get all metabolites
 metModel=getMetsFromKEGG(keggPath);

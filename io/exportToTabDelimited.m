@@ -156,7 +156,8 @@ for i=1:numel(model.mets)
            for j=1:numel(model.metMiriams{i}.name)
                toPrint=[toPrint strtrim(model.metMiriams{i}.name{j}) '/' strtrim(model.metMiriams{i}.value{j}) ';']; 
            end
-           fprintf(rxnFile,[toPrint(1:end-1) '\t']);
+           toPrint = strrep( toPrint, '%', '%%' );
+           fprintf(metFile,[toPrint(1:end-1) '\t']);
        else
            fprintf(metFile,'\t');
        end

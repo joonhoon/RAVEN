@@ -139,7 +139,9 @@ model.ppos=model.ppos(1:num-1);
 % Go throught the indexes to get the rxnGeneMat matrix
 model.rxnGeneMat=sparse(numel(model.rxns),num-1);
 for i=1:num-1
-	model.rxnGeneMat(:,i)=metaCycModel.rxnGeneMat(:,indexes(i));
+	if indexes(i) > 0
+		model.rxnGeneMat(:,i)=metaCycModel.rxnGeneMat(:,indexes(i));
+	end
 end
 
 %Remove all reactions without genes

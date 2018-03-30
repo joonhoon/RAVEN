@@ -77,10 +77,7 @@ else
 end
 
 % Run BLAST multi-threaded to use all logical cores assigned to MATLAB.
-cores = evalc('feature(''numcores'')');
-cores = strsplit(cores, 'MATLAB was assigned: ');
-cores = regexp(cores{2},'^\d*','match');
-cores = cores{1};
+cores = num2str(nproc()/2);
 
 [status, ~]=system(['"' fullfile(ravenPath,'software','blast-2.6.0+',['makeblastdb' binEnd]) '" -in "' fastaFile{1} '" -out "' tmpDB '" -dbtype prot']);
 if status~=0
@@ -121,14 +118,14 @@ for i=1:numel(refFastaFiles)*2
     if i<=numel(refFastaFiles)
         tempStruct.fromId=modelIDs{i};
         tempStruct.toId=organismID{1};
-        A=importdata([outFile '_' num2str(i)]);
+        A=importdata([outFile '_' num2str(i)], ',');
     else
         tempStruct.fromId=organismID{1};
         tempStruct.toId=modelIDs{i-numel(refFastaFiles)};
-        A=importdata([outFile '_r' num2str(i-numel(refFastaFiles))]);
+        A=importdata([outFile '_r' num2str(i-numel(refFastaFiles))], ',');
     end
-    tempStruct.fromGenes=A.textdata(:,1);
-    tempStruct.toGenes=A.textdata(:,2);
+    tempStruct.fromGenes=A.rowheaders(:,1);
+    tempStruct.toGenes=A.textdata(:,1);
     tempStruct.evalue=A.data(:,1);
     tempStruct.identity=A.data(:,2);
     tempStruct.aligLen=A.data(:,3);

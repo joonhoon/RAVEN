@@ -207,10 +207,7 @@ if nargin<13
 end
 
 % Run the external binaries multi-threaded to use all logical cores assigned to MATLAB.
-cores = evalc('feature(''numcores'')');
-cores = strsplit(cores, 'MATLAB was assigned: ');
-cores = regexp(cores{2},'^\d*','match');
-cores = cores{1};
+cores = num2str(nproc()/2);
 
 % Checking if dataDir is consistent. It must point to pre-trained HMMs set,
 % compatible with the the current RAVEN version.
@@ -654,7 +651,7 @@ fprintf('Completed generation of HMMs\n');
 %Check if training of Hidden Markov models should be performed
 missingOUT=setdiff(KOModel.rxns,outFiles);
 if ~isempty(missingOUT)
-    missingOUT=missingOUT(randperm(RandStream.create('mrg32k3a','Seed',cputime()),numel(missingOUT)));
+    missingOUT=missingOUT(randperm(numel(missingOUT)));
     for i=1:numel(missingOUT)
         %This is checked here because it could be that it is created by a
         %parallell process
@@ -702,7 +699,7 @@ koGeneMat=zeros(numel(KOModel.rxns),3000); %Make room for 3000 genes
 genes=cell(3000,1);
 %Store the best score for a gene in a hash list (since I will be searching
 %many times)
-hTable = java.util.Hashtable;
+hTable = javaObject("java.util.Hashtable");
 
 geneCounter=0;
 for i=1:numel(KOModel.rxns)
