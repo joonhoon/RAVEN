@@ -114,7 +114,7 @@ c=zeros(10000000,1);
 counter=1;
 for i=1:numel(model.rxns)
     if isstruct(model.rxnMiriams{i})
-        I=strncmp('kegg.orthology',model.rxnMiriams{i}.name,18);
+        I=strncmp('kegg.orthology',model.rxnMiriams{i}.name,14);
         [J, K]=ismember(model.rxnMiriams{i}.value(I),KOModel.rxns);
         %Find all gene indexes that correspond to any of these KOs
         [~, L]=find(KOModel.rxnGeneMat(K(J),:));
