@@ -86,7 +86,7 @@ for i=1:numel(model.rxns)
    
    if isfield(model,'rxnMiriams')
        if ~isempty(model.rxnMiriams{i})
-           toPrint=[];
+           toPrint=[''];
            for j=1:numel(model.rxnMiriams{i}.name)
                toPrint=[toPrint strtrim(model.rxnMiriams{i}.name{j}) '/' strtrim(model.rxnMiriams{i}.value{j}) ';']; 
            end
@@ -152,7 +152,7 @@ for i=1:numel(model.mets)
    
    if isfield(model,'metMiriams')
        if ~isempty(model.metMiriams{i})
-           toPrint=[];
+           toPrint=[''];
            for j=1:numel(model.metMiriams{i}.name)
                toPrint=[toPrint strtrim(model.metMiriams{i}.name{j}) '/' strtrim(model.metMiriams{i}.value{j}) ';']; 
            end
