@@ -125,7 +125,7 @@ for i=1:numel(refFastaFiles)*2
         A=importdata([outFile '_r' num2str(i-numel(refFastaFiles))], ',');
     end
     tempStruct.fromGenes=A.rowheaders(:,1);
-    tempStruct.toGenes=A.textdata(:,1);
+    tempStruct.toGenes=A.rowheaders(:,2);
     tempStruct.evalue=A.data(:,1);
     tempStruct.identity=A.data(:,2);
     tempStruct.aligLen=A.data(:,3);
